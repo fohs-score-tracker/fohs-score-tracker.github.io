@@ -10,6 +10,10 @@
           <p class="text-primary text-center">The red circle shows where the shot was made from.</p>
           <form ref="form" @submit.prevent="onSubmit" id="shotForm" @input="formValid = form.checkValidity()">
             <fieldset :disabled="appState.requestPending">
+              <b>Game ID</b>
+              <input class="form-control font-monospace" required type="number" v-model="newShot.game_id" placeholder="Game ID" />
+              <div class="form-text">TODO: select game from dropdown</div>
+              <hr />
               <b>Which player threw the shot?</b>
               <div class="form-check" v-for="player in appState.players" :key="player.id">
                 <input
@@ -80,6 +84,7 @@
         </div>
         <div class="modal-footer bg-light">
           <button :disabled="!formValid || appState.requestPending" class="btn btn-primary" form="shotForm" type="submit">
+            <div class="spinner-border spinner-border-sm" v-if="appState.requestPending == `POST /players/${playerId}/shots/new`" />
             Record Shot
           </button>
           <button
@@ -101,6 +106,7 @@
 <script setup>
 import { inject, ref } from "@vue/runtime-core";
 
+const apiCall = inject("apiCall");
 const appState = inject("state");
 const newShot = inject("newShot");
 
@@ -112,8 +118,17 @@ const formValid = ref(false);
 const playerId = ref(0);
 
 async function onSubmit() {
-  // don't send any requests for now, /players/id/shots/new returns 500
-  console.info(JSON.stringify(newShot), playerId.value);
+  let plr = await apiCall(`/players/${playerId.value}/shots/new`, {
+    method: "POST",
+    body: JSON.stringify(newShot),
+  }).then((r) => r.json());
+  appState.players.find((p) => p.id == playerId.value).shots = plr.shots;
+  // reset values
+  newShot.x = 0;
+  newShot.y = 0;
+  newShot.missed = false;
+  newShot.gameId = 0;
+  newShot.points = 0;
   closeButton.value.click();
 }
 </script>

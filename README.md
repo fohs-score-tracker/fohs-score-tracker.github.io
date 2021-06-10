@@ -10,8 +10,6 @@
 *** fohs-score-tracker, fohs-score-tracker.github.io, twitter_handle, email, fohs-score-tracker, project_description
 -->
 
-
-
 <!-- PROJECT SHIELDS -->
 <!--
 *** I'm using markdown "reference style" links for readability.
@@ -20,14 +18,13 @@
 *** for contributors-url, forks-url, etc. This is an optional, concise syntax you may use.
 *** https://www.markdownguide.org/basic-syntax/#reference-style-links
 -->
+
 [![Contributors][contributors-shield]][contributors-url]
 [![Forks][forks-shield]][forks-url]
 [![Stargazers][stars-shield]][stars-url]
 [![Issues][issues-shield]][issues-url]
 [![MIT License][license-shield]][license-url]
-[![LinkedIn][linkedin-shield]][linkedin-url]
-
-
+![Build Status][build-shield]
 
 <!-- PROJECT LOGO -->
 <br />
@@ -51,8 +48,6 @@
     <a href="https://github.com/fohs-score-tracker/fohs-score-tracker.github.io/issues">Request Feature</a>
   </p>
 </p>
-
-
 
 <!-- TABLE OF CONTENTS -->
 <details open="open">
@@ -80,46 +75,45 @@
   </ol>
 </details>
 
-
-
 <!-- ABOUT THE PROJECT -->
+
 ## About The Project
 
-<!-- [![Product Name Screen Shot][product-screenshot]](https://example.com) --> 
+<!-- [![Product Name Screen Shot][product-screenshot]](https://example.com) -->
 
 <!--Here's a blank template to get started:
 **To avoid retyping too much info. Do a search and replace with your text editor for the following:**
 `fohs-score-tracker`, `fohs-score-tracker.github.io`, `twitter_handle`, `email`, `fohs-score-tracker`, `project_description`
---> 
+-->
 
 ### Built With
 
-* []()
-* []()
-* []()
-
-
+- []()
+- []()
+- []()
 
 <!-- GETTING STARTED -->
+
 ## Getting Started
 
 To get a local copy up and running follow these simple steps.
 
 ### Prerequisites
 
-* Have Node.js
-* Install yarn
+- Have Node.js
+- Install yarn
 
 ### Installation
 
-* Clone the repo
-    ```sh 
-    git clone https://github.com/fohs-score-tracker/fohs-score-tracker.github.io/
-    cd fohs-score-tracker.github.io
-    yarn install --dev
-    ```
+- Clone the repo
+  ```sh
+  git clone https://github.com/fohs-score-tracker/fohs-score-tracker.github.io/
+  cd fohs-score-tracker.github.io
+  yarn install --dev
+  ```
 
 <!-- USAGE EXAMPLES -->
+
 ## Usage
 
 ### Running (production)
@@ -140,16 +134,14 @@ yarn dev
 
 <!--_For more examples, please refer to the [Documentation](https://example.com) -->
 
-
-
 <!-- ROADMAP -->
+
 ## Roadmap
 
 See the [open issues](https://github.com/fohs-score-tracker/fohs-score-tracker.github.io/issues) for a list of proposed features (and known issues).
 
-
-
 <!-- CONTRIBUTING -->
+
 ## Contributing
 
 Contributions are what make the open source community such an amazing place to be learn, inspire, and create. Any contributions you make are **greatly appreciated**.
@@ -160,43 +152,35 @@ Contributions are what make the open source community such an amazing place to b
 4. Push to the Branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
 
-
-
 <!-- LICENSE -->
+
 ## License
 
 Distributed under the MIT License. See `LICENSE` for more information.
 
-
-
 <!-- CONTACT -->
+
 ## Contact
 
-<!-- Your Name - [@twitter_handle](https://twitter.com/twitter_handle) - email --> 
+<!-- Your Name - [@twitter_handle](https://twitter.com/twitter_handle) - email -->
 
 Project Link: [https://github.com/fohs-score-tracker/fohs-score-tracker.github.io](https://github.com/fohs-score-tracker/fohs-score-tracker.github.io)
 
-
-
 <!-- ACKNOWLEDGEMENTS -->
+
 ## Acknowledgements
 
-* 👤 **DaShaun Carter**
-     - Github: [@dashaun](https://github.com/dashaun)
-     - Twitter : [@dashaun](https://twitter.com/dashaun/)
+- 👤 **DaShaun Carter**
 
+  - Github: [@dashaun](https://github.com/dashaun)
+  - Twitter : [@dashaun](https://twitter.com/dashaun/)
 
-
- * 👤 **Phillip Hodges**
-     - Github: [@phodges7727](https://github.com/phodges7727)
-
-
-
-
-
+- 👤 **Phillip Hodges**
+  - Github: [@phodges7727](https://github.com/phodges7727)
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
+
 [contributors-shield]: https://img.shields.io/github/contributors/fohs-score-tracker/fohs-score-tracker.github.io.svg?style=for-the-badge
 [contributors-url]: https://github.com/fohs-score-tracker/fohs-score-tracker.github.io/graphs/contributors
 [forks-shield]: https://img.shields.io/github/forks/fohs-score-tracker/fohs-score-tracker.github.io.svg?style=for-the-badge
@@ -207,5 +191,4 @@ Project Link: [https://github.com/fohs-score-tracker/fohs-score-tracker.github.i
 [issues-url]: https://github.com/fohs-score-tracker/fohs-score-tracker.github.io/issues
 [license-shield]: https://img.shields.io/github/license/fohs-score-tracker/fohs-score-tracker.github.io.svg?style=for-the-badge
 [license-url]: https://github.com/fohs-score-tracker/fohs-score-tracker.github.io/blob/master/LICENSE.txt
-[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
-[linkedin-url]: https://linkedin.com/in/fohs-score-tracker
+[build-shield]: https://img.shields.io/github/workflow/status/fohs-score-tracker/fohs-score-tracker.github.io/build?style=for-the-badge
