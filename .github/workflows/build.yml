@@ -22,6 +22,7 @@ jobs:
       - name: Commit to build branch
         run: |
           git checkout build
+          rm -rf ./assets/
           mv dist/* .
           git config --global user.name "github-actions"
           git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
