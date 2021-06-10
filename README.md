@@ -11,13 +11,13 @@ yarn install --dev
 ### Running (production)
 
 ```sh
-yarn run vite build
+yarn build
 # the app is now in dist/
 ```
 
 ### Running (development)
 
 ```sh
-yarn run vite
+yarn dev
 # open `localhost:3000` in your browser
 ```
