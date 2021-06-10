@@ -1,0 +1,27 @@
+name: build
+on:
+  push:
+    branches: [main]
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: "16"
+      - name: Install dependencies
+        run: |
+          yarn --dev
+      - name: Build app
+        run: |
+          yarn build
+      - name: Commit to build branch
+        run: |
+          git checkout build
+          mv dist/* .
+          git config --global user.name "github-actions"
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add .
+          git commit -m "Automated build commit"
+          git push origin build
