@@ -49,8 +49,8 @@
             <span class="invalid-feedback">Incorrect password.</span>
           </div>
           <div class="row m-0 align-items-center gy-2 gy-md-0">
-            <div class="form-check col-auto order-2" title="Currently unimplemented">
-              <input disabled type="checkbox" class="form-check-input" id="rememberMe" />
+            <div class="form-check col-auto order-2">
+              <input v-model="rememberMe" type="checkbox" class="form-check-input" id="rememberMe" />
               <label class="form-check-label" for="rememberMe">Remember me</label>
             </div>
             <button
@@ -101,27 +101,37 @@ const notLoggedIn = ref(false);
 const serverError = ref(false);
 const formValid = ref(false);
 const invalidLogin = ref("");
+const rememberMe = ref(false);
 
 async function onFormSubmit() {
-  let emailElement = email.value;
-  let passwordElement = password.value;
-
   invalidLogin.value = "";
 
-  appState.authHeader = "Basic " + btoa(`${email.value}:${password.value}`);
+  let formData = new FormData();
+  formData.append("username", email.value);
+  formData.append("password", password.value);
   try {
-    var response = await apiCall("/users/me");
+    var response = await apiCall("/token", { method: "POST", body: formData });
   } catch {
     serverError.value = true;
   }
   var data = await response.json();
-  if (response.status == 401) {
+  if (!response.ok) {
     if (data.detail.toLowerCase().includes("password")) {
       invalidLogin.value = "password";
     } else {
       invalidLogin.value = "email";
     }
   } else {
+    appState.token = data["access_token"];
+    const savedLogin = JSON.stringify({
+      host: appState.apiBase,
+      token: appState.token,
+    });
+    if (rememberMe.value) {
+      localStorage.setItem("score-tracker-session", savedLogin);
+    } else {
+      sessionStorage.setItem("score-tracker-session", savedLogin);
+    }
     notLoggedIn.value = false;
   }
 }

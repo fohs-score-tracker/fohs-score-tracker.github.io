@@ -1,6 +1,20 @@
 <template>
+  <div class="bg-light text-secondary text-center mt-2 pb-2 border-bottom shadow-sm" v-if="Object.keys(userData).length > 0">
+    <div class="text-truncate mb-1">
+      Logged in as
+      <b>{{ userData.name }}</b>
+    </div>
+    <button disabled class="btn btn-secondary">
+      <i-fa-solid:cog />
+      Settings
+    </button>
+    <button class="btn btn-danger ms-1" @click="logout">
+      <i-fa-solid:sign-out-alt />
+      Logout
+    </button>
+  </div>
   <div class="container">
-    <h1 class="mt-4 text-secondary text-center">
+    <h1 class="mt-2 text-secondary text-center">
       <b class="text-primary">FOHS</b>
       ScoreTracker
     </h1>
@@ -35,6 +49,7 @@
 
 <script setup>
 import { inject, onMounted, provide, reactive, ref } from "@vue/runtime-core";
+import WelcomeScreen from "./WelcomeScreen.vue";
 
 const appState = inject("state");
 const apiCall = inject("apiCall");
@@ -55,8 +70,10 @@ provide("courtWidth", 549);
 provide("courtHeight", 320);
 provide("newShot", newShot);
 
+const userData = ref({});
 onMounted(async function () {
   appState.players = await apiCall("/players").then((r) => r.json());
+  userData.value = await apiCall("/users/me").then((r) => r.json());
 });
 
 async function addPlayer() {
@@ -66,6 +83,16 @@ async function addPlayer() {
   }).then((plr) => plr.json());
   newPlayer.name = "";
   appState.players.push(player);
+}
+
+async function logout() {
+  await apiCall("/token/revoke");
+
+  // lol
+  localStorage.removeItem("score-tracker-session");
+  sessionStorage.removeItem("score-tracker-session");
+
+  appState.currentScreen = WelcomeScreen;
 }
 
 function startRecordingShot() {

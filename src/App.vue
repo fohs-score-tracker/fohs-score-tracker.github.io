@@ -5,17 +5,18 @@
 <script setup>
 import { markRaw, onMounted, provide, reactive } from "vue";
 import WelcomeScreen from "./components/WelcomeScreen.vue";
+import MainScreen from "./components/MainScreen.vue";
 
 const state = reactive({
   apiBase: "https://fohs-score-tracker.herokuapp.com",
   requestPending: null,
+  token: null,
 });
 
-provide("state", state);
-provide("apiCall", async function (path, args = {}) {
+async function apiCall(path, args = {}) {
   if (!args.headers) args.headers = {};
   if (!args.method) args.method = "GET";
-  args.headers["Authorization"] = state.authHeader;
+  if (state.token) args.headers["Authorization"] = "Bearer " + state.token;
   // show login spinner if waiting for GET /users/me, etc
   state.requestPending = `${args.method} ${path}`;
   try {
@@ -26,7 +27,10 @@ provide("apiCall", async function (path, args = {}) {
   }
   state.requestPending = null;
   return response;
-});
+}
+
+provide("state", state);
+provide("apiCall", apiCall);
 provide("transitionListFix", function (el) {
   // fix annoying bug
   // https://forum.vuejs.org/t/transition-group-leave-transition-w-position-absolute-jumping-to-top-left-flip/12258/4
@@ -38,7 +42,30 @@ provide("transitionListFix", function (el) {
 });
 
 // TODO: store password and skip login
-onMounted(() => (state.currentScreen = markRaw(WelcomeScreen)));
+onMounted(async function () {
+  if ((await tryToken(sessionStorage)) || (await tryToken(localStorage))) {
+    state.currentScreen = markRaw(MainScreen);
+  } else {
+    state.currentScreen = markRaw(WelcomeScreen);
+  }
+});
+
+async function tryToken(storage) {
+  let sessionJson = JSON.parse(storage.getItem("score-tracker-session"));
+  if (sessionJson == null) return false;
+
+  let { host, token } = sessionJson;
+  state.apiBase = host;
+  state.token = token;
+  let response = await apiCall("/users/me");
+  if (response.ok) {
+    return true;
+  } else {
+    state.apiBase = "https://fohs-score-tracker.herokuapp.com";
+    state.token = null;
+    return false;
+  }
+}
 </script>
 
 <style>
