@@ -8,8 +8,9 @@
       <i-fa-solid:cog />
       Settings
     </button>
-    <button class="btn btn-danger ms-1" @click="logout">
-      <i-fa-solid:sign-out-alt />
+    <button :disabled="appState.requestPending" class="btn btn-danger ms-1" @click="logout">
+      <span class="spinner-border spinner-border-sm" v-if="appState.requestPending == 'POST /token/revoke'" />
+      <i-fa-solid:sign-out-alt v-else />
       Logout
     </button>
   </div>
@@ -86,12 +87,13 @@ async function addPlayer() {
 }
 
 async function logout() {
-  await apiCall("/token/revoke");
+  await apiCall("/token/revoke", { method: "POST" });
 
   // lol
   localStorage.removeItem("score-tracker-session");
   sessionStorage.removeItem("score-tracker-session");
 
+  appState.token = null;
   appState.currentScreen = WelcomeScreen;
 }
 

@@ -58,7 +58,7 @@
               type="submit"
               class="col-12 col-md-auto btn btn-primary me-3 order-3 order-md-0"
             >
-              <span class="spinner-border spinner-border-sm" v-if="appState.requestPending == 'GET /users/me'" />
+              <span class="spinner-border spinner-border-sm" v-if="appState.requestPending == 'POST /token'" />
               <i-fa-solid:sign-in-alt v-else />
               Login
             </button>
