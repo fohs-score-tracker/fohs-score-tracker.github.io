@@ -46,3 +46,9 @@ function setCoords(styles, x, y) {
   emit("click");
 }
 </script>
+
+<style scoped>
+svg {
+  cursor: crosshair;
+}
+</style>

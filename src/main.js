@@ -1,4 +1,6 @@
 import { createApp } from "vue";
 import App from "./App.vue";
 
-createApp(App).mount("#app");
+window.addEventListener("load", function () {
+  createApp(App).mount("#app");
+});

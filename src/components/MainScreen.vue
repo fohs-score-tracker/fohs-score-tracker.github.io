@@ -1,19 +1,23 @@
 <template>
-  <div class="bg-light text-secondary text-center mt-2 pb-2 border-bottom shadow-sm" v-if="Object.keys(userData).length > 0">
-    <div class="text-truncate mb-1">
-      Logged in as
-      <b>{{ userData.name }}</b>
+  <transition name="main-screen-bar">
+    <div id="mainScreenBar" class="overflow-hidden bg-light border-bottom shadow-sm" v-if="Object.keys(userData).length > 0">
+      <div class="text-secondary text-center mt-2 pb-2">
+        <div class="text-truncate mb-1">
+          Logged in as
+          <b>{{ userData.name }}</b>
+        </div>
+        <button disabled class="btn btn-secondary">
+          <i-fa-solid:cog />
+          Settings
+        </button>
+        <button :disabled="appState.requestPending" class="btn btn-danger ms-1" @click="logout">
+          <span class="spinner-border spinner-border-sm" v-if="appState.requestPending == 'POST /token/revoke'" />
+          <i-fa-solid:sign-out-alt v-else />
+          Logout
+        </button>
+      </div>
     </div>
-    <button disabled class="btn btn-secondary">
-      <i-fa-solid:cog />
-      Settings
-    </button>
-    <button :disabled="appState.requestPending" class="btn btn-danger ms-1" @click="logout">
-      <span class="spinner-border spinner-border-sm" v-if="appState.requestPending == 'POST /token/revoke'" />
-      <i-fa-solid:sign-out-alt v-else />
-      Logout
-    </button>
-  </div>
+  </transition>
   <div class="container">
     <h1 class="mt-2 text-secondary text-center">
       <b class="text-primary">FOHS</b>
@@ -103,6 +107,16 @@ function startRecordingShot() {
 </script>
 
 <style scoped>
+.main-screen-bar-enter-active {
+  transition: all 0.2s ease-in;
+  max-height: 10em;
+}
+
+.main-screen-bar-enter-from {
+  max-height: 0em;
+  opacity: 0;
+}
+
 .players-leave-active {
   position: absolute;
 }

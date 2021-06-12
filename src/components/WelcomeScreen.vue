@@ -1,5 +1,5 @@
 <template>
-  <div class="vh-100 d-flex align-items-center" novalidate>
+  <div class="h-100 d-flex align-items-center" novalidate>
     <transition name="welcome" @after-leave="appState.currentScreen = markRaw(MainScreen)">
       <form
         @input="formValid = form.checkValidity()"

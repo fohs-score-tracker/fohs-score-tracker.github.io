@@ -1,5 +1,6 @@
 <template>
-  <component :is="state.currentScreen"> </component>
+  <component v-if="state.currentScreen != null" :is="state.currentScreen"> </component>
+  <div v-else class="text-center text-secondary p-4">FOHS ScoreTracker is loading, please wait...</div>
 </template>
 
 <script setup>
@@ -69,6 +70,12 @@ async function tryToken(storage) {
 </script>
 
 <style>
+html,
+body,
+#app {
+  height: 100%;
+  width: 100%;
+}
 body {
   background-repeat: no-repeat;
 }
