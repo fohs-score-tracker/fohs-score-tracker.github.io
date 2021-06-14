@@ -126,7 +126,7 @@ async function onSubmit() {
   // reset values
   newShot.x = 0;
   newShot.y = 0;
-  newShot.missed = false;
+  newShot.missed = true;
   newShot.gameId = 0;
   newShot.points = 0;
   closeButton.value.click();

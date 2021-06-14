@@ -68,7 +68,7 @@ const newShot = reactive({
   y: 0,
   points: 0,
   teamId: 0,
-  missed: false,
+  missed: true,
 });
 
 provide("courtWidth", 549);
