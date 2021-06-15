@@ -53,6 +53,10 @@
               <input v-model="rememberMe" type="checkbox" class="form-check-input" id="rememberMe" />
               <label class="form-check-label" for="rememberMe">Remember me</label>
             </div>
+
+            <div class="col-auto order-3">
+              <a href="#" @click="showRestToast = true"> reset password </a>
+            </div>
             <button
               :disabled="!formValid || appState.requestPending"
               type="submit"
@@ -62,6 +66,7 @@
               <i-fa-solid:sign-in-alt v-else />
               Login
             </button>
+
             <button
               :disabled="appState.requestPending"
               type="button"
