@@ -33,7 +33,7 @@
             />
             <div class="invalid-feedback">Account does not exist.</div>
           </div>
-          <div class="mb-1 mb-md-3">
+          <div class="mb-1 mb-md-2">
             <label class="form-label">
               <i-fa-solid:key />
               Password
@@ -48,29 +48,27 @@
             />
             <span class="invalid-feedback">Incorrect password.</span>
           </div>
-          <div class="row m-0 align-items-center gy-2 gy-md-0">
-            <div class="form-check col-auto order-2">
+          <div class="d-flex justify-content-between mb-1 mb-md-2">
+            <div class="form-check col-auto mb-0">
               <input v-model="rememberMe" type="checkbox" class="form-check-input" id="rememberMe" />
               <label class="form-check-label" for="rememberMe">Remember me</label>
             </div>
-
-            <div class="col-auto order-3">
-              <a href="#" @click="showRestToast = true"> reset password </a>
-            </div>
+            <a href="#" @click="showRestToast = true">reset password</a>
+          </div>
+          <div class="d-flex flex-wrap">
             <button
               :disabled="!formValid || appState.requestPending"
               type="submit"
-              class="col-12 col-md-auto btn btn-primary me-3 order-3 order-md-0"
+              class="btn btn-primary col-md-auto col-12 mb-2 mb-md-0 me-0 me-md-2"
             >
               <span class="spinner-border spinner-border-sm" v-if="appState.requestPending == 'POST /token'" />
               <i-fa-solid:sign-in-alt v-else />
               Login
             </button>
-
             <button
               :disabled="appState.requestPending"
               type="button"
-              class="col-12 col-md-auto btn btn-secondary me-3 order-3 order-md-1"
+              class="btn btn-secondary col-md-auto col-12"
               data-bs-toggle="collapse"
               data-bs-target="#loginSettings"
             >
