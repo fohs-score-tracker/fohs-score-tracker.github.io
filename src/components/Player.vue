@@ -14,6 +14,15 @@
           <span class="spinner-border spinner-border-sm" v-if="appState.requestPending == `DELETE /players/${id}`" />
           <i-fa-solid:user-minus v-else />
         </button>
+        <button
+          class="btn"
+          :class="playerRef.active ? 'btn-success' : 'btn-secondary'"
+          :disabled="appState.requestPending || (activePlayerList.length >= 5 && !playerRef.active)"
+          @click="toggleActive"
+          :title="playerRef.active ? 'Activate' : 'Deactivate'"
+        >
+          <i-fa-solid:plus />
+        </button>
       </div>
     </div>
   </div>
@@ -24,6 +33,7 @@ import { computed, defineProps, inject } from "@vue/runtime-core";
 
 const appState = inject("state");
 const apiCall = inject("apiCall");
+const activePlayerList = inject("activePlayerList");
 
 const props = defineProps({
   name: String,
@@ -50,8 +60,14 @@ const points = computed(function () {
   return result;
 });
 
+const playerRef = computed(() => appState.players[props.index]);
+
 async function deleteSelf() {
   await apiCall(`/players/${props.id}`, { method: "DELETE" });
   appState.players.splice(props.index, 1);
+}
+
+function toggleActive() {
+  playerRef.value.active = !playerRef.value.active;
 }
 </script>
