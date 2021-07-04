@@ -18,7 +18,6 @@
       </div>
     </div>
   </transition>
-  <div class="alert alert-warning" v-if="test.isMaxLimit" role="alert">This is a warning alert—check it out!</div>
   <div class="container">
     <h1 class="mt-2 text-secondary text-center">
       <b class="text-primary">FOHS</b>
@@ -72,16 +71,9 @@ const newShot = reactive({
   missed: true,
 });
 
-const test = reactive({
-  activePlayers: [],
-  maxLimit: 5,
-  isMaxLimit: false,
-});
-
 provide("courtWidth", 549);
 provide("courtHeight", 320);
 provide("newShot", newShot);
-provide("activePlayers", test);
 
 const userData = ref({});
 onMounted(async function () {

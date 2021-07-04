@@ -15,7 +15,7 @@
               <div class="form-text">TODO: select game from dropdown</div>
               <hr />
               <b>Which player threw the shot?</b>
-              <div class="form-check" v-for="player in activePlayerData" :key="player">
+              <div class="form-check" v-for="player in appState.players" :key="player.id">
                 <input
                   required
                   :id="`shotRadioPlayer${player.id}`"
@@ -109,11 +109,10 @@ import { inject, ref } from "@vue/runtime-core";
 const apiCall = inject("apiCall");
 const appState = inject("state");
 const newShot = inject("newShot");
-const test = inject("activePlayers");
+
 const modal = ref(null);
 const form = ref(null);
 const closeButton = ref(null);
-const activePlayerData = ref([]);
 
 const formValid = ref(false);
 const playerId = ref(0);
