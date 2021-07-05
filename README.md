@@ -105,12 +105,11 @@ To get a local copy up and running follow these simple steps.
 
 ### Installation
 
-- Clone the repo
-  ```sh
-  git clone https://github.com/fohs-score-tracker/fohs-score-tracker.github.io/
-  cd fohs-score-tracker.github.io
-  yarn install --dev
-  ```
+```sh
+git clone https://github.com/fohs-score-tracker/fohs-score-tracker.github.io/
+cd fohs-score-tracker.github.io
+yarn install --dev
+```
 
 <!-- USAGE EXAMPLES -->
 
