@@ -28,7 +28,9 @@
     </div>
     <div class="text-muted text-center">Tap a spot on the court to record a shot there.</div>
     <hr />
-    <h2>Players</h2>
+    <h2>
+      Players <small :class="'text-' + activePlayerColor">({{ activePlayerList.length }} active)</small>
+    </h2>
     <form @submit.prevent="addPlayer" class="input-group mb-2">
       <input
         :disabled="appState.requestPending == 'POST /players/new'"
@@ -53,7 +55,7 @@
 </template>
 
 <script setup>
-import { inject, onMounted, provide, reactive, ref } from "@vue/runtime-core";
+import { inject, onMounted, provide, reactive, ref, computed } from "@vue/runtime-core";
 import WelcomeScreen from "./WelcomeScreen.vue";
 
 const appState = inject("state");
@@ -75,10 +77,24 @@ provide("courtWidth", 549);
 provide("courtHeight", 320);
 provide("newShot", newShot);
 
+const activePlayerList = computed(() => (appState.players || []).filter((p) => p.active === true));
+provide("activePlayerList", activePlayerList);
+
 const userData = ref({});
 onMounted(async function () {
   appState.players = await apiCall("/players").then((r) => r.json());
   userData.value = await apiCall("/users/me").then((r) => r.json());
+});
+
+const activePlayerColor = computed(function () {
+  switch (activePlayerList.value.length) {
+    case 0:
+      return "danger";
+    case 5:
+      return "success";
+    default:
+      return "muted";
+  }
 });
 
 async function addPlayer() {
@@ -102,7 +118,7 @@ async function logout() {
 }
 
 function startRecordingShot() {
-  shotModalButton.value.click();
+  if (activePlayerList.value.length > 0) shotModalButton.value.click();
 }
 </script>
 

@@ -1,6 +1,12 @@
 <template>
   <div>
-    <svg xmlns="http://www.w3.org/2000/svg" :view-box.camel="`0 0 ${courtWidth} ${courtHeight}`" ref="court" @click="clicked">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      :view-box.camel="`0 0 ${courtWidth} ${courtHeight}`"
+      ref="court"
+      @click="clicked"
+      :style="{ cursor: activePlayerList.length == 0 ? 'not-allowed' : 'crosshair' }"
+    >
       <image href="/src/assets/court.png" width="100%" height="100%" />
       <circle
         v-if="showCircle"
@@ -16,6 +22,8 @@
 
 <script setup>
 import { defineEmit, defineProps, inject, ref } from "@vue/runtime-core";
+
+const activePlayerList = inject("activePlayerList");
 
 const emit = defineEmit(["click"]);
 const props = defineProps({
@@ -46,9 +54,3 @@ function setCoords(styles, x, y) {
   emit("click");
 }
 </script>
-
-<style scoped>
-svg {
-  cursor: crosshair;
-}
-</style>
