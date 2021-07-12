@@ -50,8 +50,10 @@
       </transition-group>
     </div>
   </div>
+  <!-- Modals -->
   <button class="d-none" data-bs-toggle="modal" data-bs-target="#shotModal" ref="shotModalButton"></button>
   <ShotModal id="shotModal" />
+  <DeletePlayerModal v-for="(player, index) in appState.players" v-bind="player" :key="player.id" :index="index" />
 </template>
 
 <script setup>

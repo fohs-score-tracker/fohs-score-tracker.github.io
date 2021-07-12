@@ -10,9 +10,14 @@
       </div>
       <div v-else>Shots: <b class="text-muted">None</b></div>
       <div class="btn-group float-end">
-        <button :disabled="appState.requestPending" class="btn btn-danger" @click="deleteSelf" :title="'Delete ' + name">
-          <span class="spinner-border spinner-border-sm" v-if="appState.requestPending == `DELETE /players/${id}`" />
-          <i-fa-solid:user-minus v-else />
+        <button
+          :disabled="appState.requestPending"
+          class="btn btn-danger"
+          :title="'Delete ' + name"
+          data-bs-toggle="modal"
+          :data-bs-target="'#' + deleteModalId"
+        >
+          <i-fa-solid:user-minus />
         </button>
         <button
           class="btn"
@@ -21,7 +26,8 @@
           @click="toggleActive"
           :title="playerRef.active ? 'Activate' : 'Deactivate'"
         >
-          <i-fa-solid:plus />
+          <i-fa-solid:minus v-if="playerRef.active" />
+          <i-fa-solid:plus v-else />
         </button>
       </div>
     </div>
@@ -29,7 +35,7 @@
 </template>
 
 <script setup>
-import { computed, defineProps, inject } from "@vue/runtime-core";
+import { computed, defineProps, inject, ref } from "@vue/runtime-core";
 
 const appState = inject("state");
 const apiCall = inject("apiCall");
@@ -62,10 +68,7 @@ const points = computed(function () {
 
 const playerRef = computed(() => appState.players[props.index]);
 
-async function deleteSelf() {
-  await apiCall(`/players/${props.id}`, { method: "DELETE" });
-  appState.players.splice(props.index, 1);
-}
+const deleteModalId = computed(() => `delete-player-${playerRef.value.id}`);
 
 function toggleActive() {
   playerRef.value.active = !playerRef.value.active;
