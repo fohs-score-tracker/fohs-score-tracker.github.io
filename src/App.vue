@@ -5,8 +5,8 @@
 
 <script setup>
 import { markRaw, onMounted, provide, reactive } from "vue";
-import WelcomeScreen from "./components/WelcomeScreen.vue";
-import MainScreen from "./components/MainScreen.vue";
+import WelcomeScreen from "./screens/WelcomeScreen.vue";
+import MainScreen from "./screens/MainScreen.vue";
 
 const state = reactive({
   apiBase: "https://fohs-score-tracker.herokuapp.com",
