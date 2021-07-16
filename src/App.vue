@@ -78,6 +78,7 @@ body,
 }
 body {
   background-repeat: no-repeat;
+  caret-color: var(--bs-primary);
 }
 ::selection {
   color: var(--bs-white);
