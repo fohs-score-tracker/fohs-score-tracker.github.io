@@ -1,23 +1,5 @@
 <template>
-  <transition name="main-screen-bar">
-    <div id="mainScreenBar" class="overflow-hidden bg-light border-bottom shadow-sm" v-if="Object.keys(userData).length > 0">
-      <div class="text-secondary text-center mt-2 pb-2">
-        <div class="text-truncate mb-1">
-          Logged in as
-          <b>{{ userData.name }}</b>
-        </div>
-        <button disabled class="btn btn-secondary">
-          <i-fa-solid:cog />
-          Settings
-        </button>
-        <button :disabled="appState.requestPending" class="btn btn-danger ms-1" @click="logout">
-          <span class="spinner-border spinner-border-sm" v-if="appState.requestPending == 'POST /token/revoke'" />
-          <i-fa-solid:sign-out-alt v-else />
-          Logout
-        </button>
-      </div>
-    </div>
-  </transition>
+  <SideMenu />
   <div class="container">
     <h1 class="mt-2 text-secondary text-center">
       <b class="text-primary">FOHS</b>
@@ -82,10 +64,8 @@ provide("newShot", newShot);
 const activePlayerList = computed(() => (appState.players || []).filter((p) => p.active === true));
 provide("activePlayerList", activePlayerList);
 
-const userData = ref({});
 onMounted(async function () {
   appState.players = await apiCall("/players").then((r) => r.json());
-  userData.value = await apiCall("/users/me").then((r) => r.json());
 });
 
 const activePlayerColor = computed(function () {
@@ -108,33 +88,12 @@ async function addPlayer() {
   appState.players.push(player);
 }
 
-async function logout() {
-  await apiCall("/token/revoke", { method: "POST" });
-
-  // lol
-  localStorage.removeItem("score-tracker-session");
-  sessionStorage.removeItem("score-tracker-session");
-
-  appState.token = null;
-  appState.currentScreen = WelcomeScreen;
-}
-
 function startRecordingShot() {
   if (activePlayerList.value.length > 0) shotModalButton.value.click();
 }
 </script>
 
 <style scoped>
-.main-screen-bar-enter-active {
-  transition: all 0.2s ease-in;
-  max-height: 10em;
-}
-
-.main-screen-bar-enter-from {
-  max-height: 0em;
-  opacity: 0;
-}
-
 .players-leave-active {
   position: absolute;
 }
