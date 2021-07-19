@@ -42,7 +42,6 @@ provide("transitionListFix", function (el) {
   el.style.height = height;
 });
 
-// TODO: store password and skip login
 onMounted(async function () {
   if ((await tryToken(sessionStorage)) || (await tryToken(localStorage))) {
     state.currentScreen = markRaw(MainScreen);
