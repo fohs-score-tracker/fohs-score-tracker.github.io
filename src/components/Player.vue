@@ -9,26 +9,35 @@
         Shots: made <b>{{ points.madeShots }}</b> out of <b>{{ points.shots }}</b>
       </div>
       <div v-else>Shots: <b class="text-muted">None</b></div>
-      <div class="btn-group float-end">
-        <button
-          :disabled="appState.requestPending"
-          class="btn btn-danger"
-          :title="'Delete ' + name"
-          data-bs-toggle="modal"
-          :data-bs-target="'#' + deleteModalId"
-        >
-          <i-fa-solid:user-minus />
-        </button>
-        <button
-          class="btn"
-          :class="playerRef.active ? 'btn-success' : 'btn-secondary'"
-          :disabled="appState.requestPending || (activePlayerList.length >= 5 && !playerRef.active)"
-          @click="toggleActive"
-          :title="playerRef.active ? 'Activate' : 'Deactivate'"
-        >
-          <i-fa-solid:minus v-if="playerRef.active" />
-          <i-fa-solid:plus v-else />
-        </button>
+      <div class="row gx-1">
+        <div class="col d-grid">
+          <button
+            :disabled="appState.requestPending"
+            class="btn btn-danger"
+            data-bs-toggle="modal"
+            :data-bs-target="'#' + deleteModalId"
+          >
+            <i-fa-solid:user-minus />
+            Delete
+          </button>
+        </div>
+        <div class="col d-grid">
+          <button
+            class="btn"
+            :class="playerRef.active ? 'btn-success' : 'btn-secondary'"
+            :disabled="appState.requestPending || (activePlayerList.length >= 5 && !playerRef.active)"
+            @click="toggleActive"
+          >
+            <div v-if="playerRef.active">
+              <i-fa-solid:minus />
+              Deactivate
+            </div>
+            <div v-else>
+              <i-fa-solid:plus />
+              Activate
+            </div>
+          </button>
+        </div>
       </div>
     </div>
   </div>
