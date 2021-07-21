@@ -1,6 +1,6 @@
 <template>
   <SideMenu />
-  <div class="container">
+  <div class="container pb-3">
     <h1 class="mt-2 text-secondary text-center">
       <b class="text-primary">FOHS</b>
       ScoreTracker
