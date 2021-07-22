@@ -1,5 +1,5 @@
 <template>
-  <div class="modal fade" :id="deleteModalId">
+  <div class="modal fade" :id="`delete-player-${id}`">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header text-white bg-secondary justify-content-start">
@@ -40,7 +40,6 @@ const props = defineProps({
 });
 
 const closeDeleteModal = ref(null);
-const deleteModalId = computed(() => `delete-player-${props.id}`);
 
 async function deletePlayer() {
   await apiCall(`/players/${props.id}`, { method: "DELETE" });

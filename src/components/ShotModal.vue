@@ -6,7 +6,7 @@
           <h5 class="modal-title">Record Shot</h5>
         </div>
         <div class="modal-body">
-          <CourtSvg show-circle class="p-1 bg-primary mb-2" />
+          <CourtSvg class="p-1 bg-primary mb-2" :circles="[newShot]" />
           <p class="text-primary text-center">The red circle shows where the shot was made from.</p>
           <form ref="form" @submit.prevent="onSubmit" id="shotForm" @input="formValid = form.checkValidity()">
             <fieldset :disabled="appState.requestPending">

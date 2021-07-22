@@ -5,52 +5,56 @@
       :view-box.camel="`0 0 ${courtWidth} ${courtHeight}`"
       ref="court"
       @click="clicked"
-      :style="{ cursor: activePlayerList.length == 0 ? 'not-allowed' : 'crosshair' }"
+      :style="{ cursor: ignoreClicks ? 'initial' : (!requireActive || activePlayerList.length) > 0 ? 'crosshair' : 'not-allowed' }"
     >
       <image href="/src/assets/court.png" width="100%" height="100%" />
-      <circle
-        v-if="showCircle"
-        :cx="(coords.x / 100) * courtWidth"
-        :cy="(coords.y / 50) * courtHeight"
-        r="15"
-        fill="var(--bs-primary)"
-        class="pe-none"
-      />
+      <template v-if="!hideCircles">
+        <circle
+          v-for="circle in circles"
+          :key="circle"
+          :cx="(circle.x / 100) * courtWidth"
+          :cy="(circle.y / 50) * courtHeight"
+          r="15"
+          :fill="`var(${circle.missed === false ? '--bs-success' : '--bs-primary'})`"
+          class="pe-none"
+        />
+      </template>
     </svg>
   </div>
 </template>
 
 <script setup>
-import { defineEmit, defineProps, inject, ref } from "@vue/runtime-core";
+import { defineEmit, defineProps, inject, ref, reactive } from "@vue/runtime-core";
 
 const activePlayerList = inject("activePlayerList");
 
 const emit = defineEmit(["click"]);
 const props = defineProps({
-  showCircle: { type: Boolean },
+  requireActive: Boolean,
+  hideCircles: Boolean,
+  ignoreClicks: Boolean,
+  circles: Array,
 });
 
 const court = ref(null);
-const courtWidth = inject("courtWidth");
-const courtHeight = inject("courtHeight");
+const courtWidth = 549;
+const courtHeight = 320;
 
 function clicked(e) {
+  if (props.ignoreClicks) return;
+
   var rect = e.target.getBoundingClientRect();
   var styles = getComputedStyle(court.value);
 
   var x = e.clientX - rect.left;
   var y = e.clientY - rect.top;
 
-  setCoords(styles, x, y);
-}
-
-const coords = inject("newShot");
-function setCoords(styles, x, y) {
   x /= parseInt(styles.getPropertyValue("width"));
   y /= parseInt(styles.getPropertyValue("height"));
 
-  coords.x = Math.round(x * 100);
-  coords.y = Math.round(y * 50);
+  props.circles[0].x = Math.round(x * 100);
+  props.circles[0].y = Math.round(y * 50);
+
   emit("click");
 }
 </script>

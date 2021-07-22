@@ -6,7 +6,13 @@
       ScoreTracker
     </h1>
     <div class="text-center">
-      <CourtSvg class="d-inline-block bg-dark p-1 mw-100 col-12 col-lg-6 mb-2 shadow" @click="startRecordingShot" />
+      <CourtSvg
+        require-active
+        hide-circles
+        :circles="[newShot]"
+        class="d-inline-block bg-dark p-1 mw-100 col-12 col-lg-6 mb-2 shadow"
+        @click="startRecordingShot"
+      />
     </div>
     <div class="text-muted text-center">Tap a spot on the court to record a shot there.</div>
     <hr />
@@ -36,6 +42,7 @@
   <button class="d-none" data-bs-toggle="modal" data-bs-target="#shotModal" ref="shotModalButton"></button>
   <ShotModal id="shotModal" />
   <DeletePlayerModal v-for="(player, index) in appState.players" v-bind="player" :key="player.id" :index="index" />
+  <PlayerStatsModal v-for="(player, index) in appState.players" v-bind="player" :key="player.id" :index="index" />
 </template>
 
 <script setup>
@@ -57,8 +64,6 @@ const newShot = reactive({
   missed: true,
 });
 
-provide("courtWidth", 549);
-provide("courtHeight", 320);
 provide("newShot", newShot);
 
 const activePlayerList = computed(() => (appState.players || []).filter((p) => p.active === true));

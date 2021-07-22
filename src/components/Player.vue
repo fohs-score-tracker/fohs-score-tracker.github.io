@@ -10,20 +10,27 @@
       </div>
       <div v-else>Shots: <b class="text-muted">None</b></div>
       <div class="row gx-1">
+        <!-- buttons go here -->
         <div class="col d-grid">
           <button
             :disabled="appState.requestPending"
-            class="btn btn-danger"
+            class="btn btn-sm btn-danger"
             data-bs-toggle="modal"
-            :data-bs-target="'#' + deleteModalId"
+            :data-bs-target="`#delete-player-${id}`"
           >
             <i-fa-solid:user-minus />
             Delete
           </button>
         </div>
         <div class="col d-grid">
+          <button class="btn btn-sm btn-info" data-bs-toggle="modal" :data-bs-target="`#stats-player-${id}`">
+            <i-fa-solid:chart-area />
+            Stats
+          </button>
+        </div>
+        <div class="col d-grid">
           <button
-            class="btn"
+            class="btn btn-sm"
             :class="playerRef.active ? 'btn-success' : 'btn-secondary'"
             :disabled="appState.requestPending || (activePlayerList.length >= 5 && !playerRef.active)"
             @click="toggleActive"
@@ -76,8 +83,6 @@ const points = computed(function () {
 });
 
 const playerRef = computed(() => appState.players[props.index]);
-
-const deleteModalId = computed(() => `delete-player-${playerRef.value.id}`);
 
 function toggleActive() {
   playerRef.value.active = !playerRef.value.active;
