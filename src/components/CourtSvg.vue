@@ -14,7 +14,7 @@
           :key="circle"
           :cx="(circle.x / 100) * courtWidth"
           :cy="(circle.y / 50) * courtHeight"
-          r="15"
+          r="10"
           :fill="`var(${circle.missed === false ? '--bs-success' : '--bs-primary'})`"
           class="pe-none"
         />
