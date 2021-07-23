@@ -7,7 +7,7 @@
           Stats for {{ name }}
         </div>
         <div class="modal-body">
-          <CourtSvg class="bg-secondary p-1" ignore-clicks :circles="shots" />
+          <CourtSvg class="bg-secondary p-1 mb-2" ignore-clicks :circles="shots" />
           <table class="table table-striped">
             <thead>
               <tr>
