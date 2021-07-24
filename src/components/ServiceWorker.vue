@@ -1,7 +1,7 @@
 
 
 <template>
-    <div v-if="offlineReady"
+    <!-- <div v-if="offlineReady"
     class="toast" role="alert" aria-live="assertive" aria-atomic="true">
     <div class="toast-header">
         <strong> PWA message </strong>
@@ -21,7 +21,13 @@
          The web app needs to refresh.
          <button @click="updateServiceWorker()"> Reload </button> 
     </div>
-    </div>
+    </div> -->
+<div v-show="emptytemp">
+    
+  
+  </div> 
+
+
 </template>
 
 
@@ -29,12 +35,15 @@
 
 
 <script setup>
+ import  { ref } from "@vue/runtime-core";
 import { useRegisterSW } from "virtual:pwa-register/vue"
 const { offlineReady, needRefresh, updateServiceWorker } = useRegisterSW();
+  const emptytemp = ref(false);
 
 const close = async () => {
   offlineReady.value = false;
   needRefresh.value = false;
 };
+
 
 </script>
