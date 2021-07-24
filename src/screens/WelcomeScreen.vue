@@ -86,6 +86,7 @@
         </fieldset>
       </form>
     </transition>
+    <ServiceWorker/>
   </div>
 </template>
 

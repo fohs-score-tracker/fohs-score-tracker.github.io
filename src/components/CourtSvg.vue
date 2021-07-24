@@ -7,7 +7,7 @@
       @click="clicked"
       :style="{ cursor: ignoreClicks ? 'initial' : (!requireActive || activePlayerList.length) > 0 ? 'crosshair' : 'not-allowed' }"
     >
-      <image href="/src/assets/court.png" width="100%" height="100%" />
+      <image href="/court.png" width="100%" height="100%" />
       <template v-if="!hideCircles">
         <circle
           v-for="circle in circles"
