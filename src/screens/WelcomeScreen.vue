@@ -86,8 +86,8 @@
         </fieldset>
       </form>
     </transition>
-    <ServiceWorker/>
   </div>
+  <ReloadPrompt />
 </template>
 
 <script setup>

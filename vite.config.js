@@ -1,8 +1,9 @@
 import { defineConfig } from "vite";
-import { VitePWA } from "vite-plugin-pwa";
 import Vue from "@vitejs/plugin-vue";
 import Components from "vite-plugin-components";
 import ViteIcons, { ViteIconsResolver } from "vite-plugin-icons";
+import { VitePWA } from "vite-plugin-pwa";
+
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
@@ -12,24 +13,16 @@ export default defineConfig({
     }),
     ViteIcons(),
     VitePWA({
-      mode: "development",
-      filename: "service-worker.js",
+      includeAssets: ["/favicon.svg", "/assets/*"],
       manifest: {
-        // content of manifest
-        mode: "development",
-        base: "/",
+        background_color: "#A80C04",
+        display: "standalone",
+        name: "FOHS ScoreTracker",
+        short_name: "ScoreTracker",
         icons: [
           {
-            src: "/manifest-icon-192.png",
-            sizes: "192x192",
-            type: "image/png",
-            purpose: "maskable any",
-          },
-          {
-            src: "/manifest-icon-512.png",
+            src: "/pwaicon.png",
             sizes: "512x512",
-            type: "image/png",
-            purpose: "maskable any",
           },
         ],
       },

@@ -123,20 +123,12 @@ yarn build
 # the app is now in dist/
 ```
 
-### Running (development without PWA)
+### Running (development)
 
 ```sh
 yarn dev
 
 #open `localhost:3000` in your browser
-```
-
-
-### Running (development with PWA)
-```sh
- yarn build
-
- yarn serve
 ```
 
 <!--_For more examples, please refer to the [Documentation](https://example.com) -->

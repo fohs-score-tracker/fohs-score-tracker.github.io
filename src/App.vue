@@ -1,5 +1,4 @@
 <template>
- <reload-prompt/>
   <component v-if="state.currentScreen != null" :is="state.currentScreen"> </component>
   <div v-else class="d-flex flex-column align-items-center justify-content-center h-100 bg-primary bg-gradient text-white">
     <div class="fw-bold fs-5">FOHS ScoreTracker is loading...</div>
@@ -70,7 +69,6 @@ async function tryToken(storage) {
     return false;
   }
 }
-
 </script>
 
 <style>
