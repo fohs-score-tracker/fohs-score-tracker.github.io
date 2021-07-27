@@ -5,7 +5,7 @@
   <div class="offcanvas offcanvas-start" tabindex="-1" id="sideMenu">
     <div class="offcanvas-header bg-light border-bottom">
       <h5 class="offcanvas-title fw-bold">Menu</h5>
-      <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+      <button ref="close" type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="p-2">
       <div class="mb-2 fs-4 fw-bold text-truncate text-center">
@@ -33,7 +33,7 @@
 </template>
 
 <script setup>
-import { computed, defineProps, inject, ref, onMounted } from "@vue/runtime-core";
+import { computed, defineProps, inject, ref, markRaw, onMounted } from "@vue/runtime-core";
 import WelcomeScreen from "../screens/WelcomeScreen.vue";
 
 const apiCall = inject("apiCall");
@@ -44,15 +44,18 @@ onMounted(async function () {
   userData.value = await apiCall("/users/me").then((r) => r.json());
 });
 
+const close = ref(null);
+
 async function logout() {
   await apiCall("/token/revoke", { method: "POST" });
+  close.value.click();
 
   // lol
   localStorage.removeItem("score-tracker-session");
   sessionStorage.removeItem("score-tracker-session");
 
   appState.token = null;
-  appState.currentScreen = WelcomeScreen;
+  appState.currentScreen = markRaw(WelcomeScreen);
 }
 </script>
 
