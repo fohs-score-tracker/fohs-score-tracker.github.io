@@ -15,6 +15,12 @@
       <div class="row gy-2">
         <!-- the buttons go here -->
         <div class="col-12 d-grid">
+          <button :disabled="appState.requestPending" class="btn btn-Secondary" @click="gameScreen">
+            <i class="fas fa-basketball-ball"></i>
+            Games
+          </button>
+        </div>
+        <div class="col-12 d-grid">
           <button :disabled="appState.requestPending" class="btn btn-danger" @click="logout">
             <span class="spinner-border spinner-border-sm" v-if="appState.requestPending == 'POST /token/revoke'" />
             <i-fa-solid:sign-out-alt v-else />
@@ -35,16 +41,20 @@
 <script setup>
 import { computed, defineProps, inject, ref, markRaw, onMounted } from "@vue/runtime-core";
 import WelcomeScreen from "../screens/WelcomeScreen.vue";
+import GameScreen from "../screens/GameScreen.vue";
 
 const apiCall = inject("apiCall");
 const appState = inject("state");
+const close = ref(null);
 
 const userData = ref({});
 onMounted(async function () {
   userData.value = await apiCall("/users/me").then((r) => r.json());
 });
 
-const close = ref(null);
+function gameScreen() {
+  appState.currentScreen = GameScreen;
+}
 
 async function logout() {
   await apiCall("/token/revoke", { method: "POST" });
