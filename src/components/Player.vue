@@ -1,6 +1,6 @@
 <template>
   <div class="col-md-6">
-    <div class="border bg-white p-1 clearfix rounded shadow-sm">
+    <div class="border bg-light p-1 clearfix rounded shadow-sm mb-1">
       <span class="lead">{{ name }}</span>
       <div>
         Points: <b>{{ points.total }}</b>

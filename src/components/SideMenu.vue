@@ -15,9 +15,18 @@
       <div class="row gy-2">
         <!-- the buttons go here -->
         <div class="col-12 d-grid">
-          <button :disabled="appState.requestPending" class="btn btn-Secondary" @click="gameScreen">
-            <i class="fas fa-basketball-ball"></i>
+          <button :disabled="appState.requestPending" class="btn btn-secondary" @click="mainScreen"><i-fa-solid:home /> Home</button>
+        </div>
+        <div class="col-12 d-grid">
+          <button :disabled="appState.requestPending" class="btn btn-primary" @click="gameScreen">
+            <i-fa-solid:basketball-ball />
             Games
+          </button>
+        </div>
+        <div class="col-12 d-grid">
+          <button disabled class="btn btn-secondary">
+            <i-fa-solid:cog />
+            Settings
           </button>
         </div>
         <div class="col-12 d-grid">
@@ -25,12 +34,6 @@
             <span class="spinner-border spinner-border-sm" v-if="appState.requestPending == 'POST /token/revoke'" />
             <i-fa-solid:sign-out-alt v-else />
             Logout
-          </button>
-        </div>
-        <div class="col-12 d-grid">
-          <button disabled class="btn btn-secondary">
-            <i-fa-solid:cog />
-            Settings
           </button>
         </div>
       </div>
@@ -42,6 +45,7 @@
 import { computed, defineProps, inject, ref, markRaw, onMounted } from "@vue/runtime-core";
 import WelcomeScreen from "../screens/WelcomeScreen.vue";
 import GameScreen from "../screens/GameScreen.vue";
+import MainScreen from "../screens/MainScreen.vue";
 
 const apiCall = inject("apiCall");
 const appState = inject("state");
@@ -53,7 +57,14 @@ onMounted(async function () {
 });
 
 function gameScreen() {
-  appState.currentScreen = GameScreen;
+  appState.currentScreen = markRaw(GameScreen);
+  close.value.click();
+}
+
+function mainScreen() {
+  // move to mainscreen
+  appState.currentScreen = markRaw(MainScreen);
+  close.value.click();
 }
 
 async function logout() {
