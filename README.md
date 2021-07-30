@@ -101,7 +101,7 @@ To get a local copy up and running follow these simple steps.
 ### Prerequisites
 
 - Have Node.js
-- Install yarn
+- Install yarn berry 
 
 ### Installation
 
