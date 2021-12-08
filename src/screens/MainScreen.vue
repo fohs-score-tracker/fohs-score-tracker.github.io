@@ -70,7 +70,8 @@ const activePlayerList = computed(() => (appState.players || []).filter((p) => p
 provide("activePlayerList", activePlayerList);
 
 onMounted(async function () {
-  appState.players = await apiCall("/players").then((r) => r.json());
+  let data = await apiCall("/games/" + appState.currentGame.id).then((r) => r.json());
+   appState.players =  data.team.players;
 });
 
 const activePlayerColor = computed(function () {

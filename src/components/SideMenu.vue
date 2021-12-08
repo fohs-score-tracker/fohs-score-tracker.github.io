@@ -14,13 +14,14 @@
       </div>
       <div class="row gy-2">
         <!-- the buttons go here -->
+    
         <div class="col-12 d-grid">
-          <button :disabled="appState.requestPending" class="btn btn-secondary" @click="mainScreen"><i-fa-solid:home /> Home</button>
+          <button :disabled="appState.requestPending" class="btn btn-secondary" @click="gameScreen"><i-fa-solid:home /> Home</button>
         </div>
         <div class="col-12 d-grid">
-          <button :disabled="appState.requestPending" class="btn btn-primary" @click="gameScreen">
+          <button :disabled="appState.requestPending || !appState.isCurrentGameSet " class="btn btn-primary" @click="mainScreen">
             <i-fa-solid:basketball-ball />
-            Games
+            Game
           </button>
         </div>
         <div class="col-12 d-grid">
