@@ -17,7 +17,8 @@
     <div class="text-muted text-center">Tap a spot on the court to record a shot there.</div>
     <hr />
     <h2>
-      Players <small :class="'text-' + activePlayerColor">({{ activePlayerList.length }} active)</small>
+      Players
+      <small :class="'text-' + activePlayerColor">({{ activePlayerList.length }} active)</small>
     </h2>
     <form @submit.prevent="addPlayer" class="input-group mb-2">
       <input
@@ -27,22 +28,45 @@
         placeholder="New player name"
         v-model.trim="newPlayer.name"
       />
-      <button :disabled="!newPlayer.name || appState.requestPending" type="submit" class="btn btn-primary" title="Add a player">
-        <span class="spinner-border spinner-border-sm" v-if="appState.requestPending == 'POST /players/new'" />
+      <button
+        :disabled="!newPlayer.name || appState.requestPending"
+        type="submit"
+        class="btn btn-primary"
+        title="Add a player"
+      >
+        <span
+          class="spinner-border spinner-border-sm"
+          v-if="appState.requestPending == 'POST /players/new'"
+        />
         <i-fa-solid:user-plus v-else />
       </button>
     </form>
     <div class="row g-2 position-relative">
       <transition-group name="players" @before-leave="beforeLeave">
-        <Player v-for="(player, index) in appState.players" v-bind="player" :key="player.id" :index="index" />
+        <Player
+          v-for="(player, index) in appState.players"
+          v-bind="player"
+          :key="player.id"
+          :index="index"
+        />
       </transition-group>
     </div>
   </div>
   <!-- Modals -->
   <button class="d-none" data-bs-toggle="modal" data-bs-target="#shotModal" ref="shotModalButton"></button>
   <ShotModal id="shotModal" />
-  <DeletePlayerModal v-for="(player, index) in appState.players" v-bind="player" :key="player.id" :index="index" />
-  <PlayerStatsModal v-for="(player, index) in appState.players" v-bind="player" :key="player.id" :index="index" />
+  <DeletePlayerModal
+    v-for="(player, index) in appState.players"
+    v-bind="player"
+    :key="player.id"
+    :index="index"
+  />
+  <PlayerStatsModal
+    v-for="(player, index) in appState.players"
+    v-bind="player"
+    :key="player.id"
+    :index="index"
+  />
 </template>
 
 <script setup>
@@ -56,6 +80,7 @@ const beforeLeave = inject("transitionListFix");
 const shotModalButton = ref(null);
 
 const newPlayer = reactive({ name: "" });
+
 const newShot = reactive({
   x: 0,
   y: 0,
@@ -71,7 +96,7 @@ provide("activePlayerList", activePlayerList);
 
 onMounted(async function () {
   let data = await apiCall("/games/" + appState.currentGame.id).then((r) => r.json());
-   appState.players =  data.team.players;
+  appState.players = data.team.players;
 });
 
 const activePlayerColor = computed(function () {
@@ -85,13 +110,37 @@ const activePlayerColor = computed(function () {
   }
 });
 
+
 async function addPlayer() {
   let player = await apiCall("/players/new", {
     method: "POST",
     body: JSON.stringify(newPlayer),
   }).then((plr) => plr.json());
   newPlayer.name = "";
-  appState.players.push(player);
+
+  let updateTeam = await apiCall("/teams/" + appState.currentGame.team.id, {
+    method: "PATCH",
+    body: getIdsForTeamUpdate(player),
+  });
+}
+
+
+function getIdsForTeamUpdate(newPlayer) {
+  let coaches = [];
+  let players = [];
+  let gameName = appState.currentGame.team.name;
+  players.push(newPlayer.id)
+  appState.currentGame.team.coaches.forEach((coach) => {
+    console.log(coach.id)
+    coaches.push(coach.id);
+
+  });
+  appState.currentGame.team.players.forEach((player) => {
+    players.push(player.id);
+  });
+
+  let name = appState.currentGame.team.name;
+  return JSON.stringify({ name: gameName, coaches: coaches, players: players });
 }
 
 function startRecordingShot() {
