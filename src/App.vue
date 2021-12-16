@@ -17,6 +17,7 @@ const state = reactive({
   token: null,
   currentGame: null,
   isCurrentGameSet: false,
+  team: null
 });
 
 async function apiCall(path, args = {}) {

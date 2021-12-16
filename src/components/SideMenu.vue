@@ -15,6 +15,12 @@
       <div class="row gy-2">
         <!-- the buttons go here -->
     
+      <div class="col-12 d-grid">
+          <button :disabled="appState.requestPending" class="btn btn-secondary" @click="teamScreen"><i-fa-solid:home /> Team</button>
+        </div>
+
+
+
         <div class="col-12 d-grid">
           <button :disabled="appState.requestPending" class="btn btn-secondary" @click="gameScreen"><i-fa-solid:home /> Home</button>
         </div>
@@ -47,6 +53,7 @@ import { computed, defineProps, inject, ref, markRaw, onMounted } from "@vue/run
 import WelcomeScreen from "../screens/WelcomeScreen.vue";
 import GameScreen from "../screens/GameScreen.vue";
 import MainScreen from "../screens/MainScreen.vue";
+import TeamScreen from "../screens/TeamScreen.vue"
 
 const apiCall = inject("apiCall");
 const appState = inject("state");
@@ -56,6 +63,13 @@ const userData = ref({});
 onMounted(async function () {
   userData.value = await apiCall("/users/me").then((r) => r.json());
 });
+
+
+function teamScreen(){
+  appState.currentScreen = markRaw(TeamScreen)
+  close.value.click();
+}
+
 
 function gameScreen() {
   appState.currentScreen = markRaw(GameScreen);

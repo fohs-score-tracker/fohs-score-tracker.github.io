@@ -32,7 +32,7 @@ onMounted(async function () {
   for (let game of gameList.value) {
     game.team.coaches.forEach((coach) => {
       console.log("coachID = %o, userID = %o", coach.id, userData.value.id);
-      console.log(userData.value.id == coach.id);
+      console.log(userData.value.id === coach.id);
       if (coach.id === userData.value.id) {
         appState.usersGames.push(game);
         console.log(game.team.players);
