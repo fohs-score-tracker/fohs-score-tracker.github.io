@@ -2,6 +2,16 @@
   <div class="col-md-6" @click="moveScreen">
     <div  class="border bg-white p-1 clearfix rounded shadow-sm">
       <span class="lead">{{ teamName }}</span>
+      <div class="row gx-1">
+          <div class="col d-grid">
+            <button :disabled="appState.requestPending"
+            class="btn btn-sm btn-danger"
+            >
+             <i-fa-solid:user-minus />
+            Delete Team
+            </button>
+          </div>
+      </div>
     </div>
   </div>
 </template>
@@ -15,7 +25,7 @@ const apiCall = inject("apiCall");
 
 function moveScreen(){
 
-  appState.team =  props.teamId
+  appState.teamId =  props.teamId
   appState.currentScreen = markRaw(GameScreen)
 
 }

@@ -12,12 +12,12 @@ import WelcomeScreen from "./screens/WelcomeScreen.vue";
 import GameScreen from "./screens/GameScreen.vue";
 
 const state = reactive({
-  apiBase: "https://fohs-score-tracker.herokuapp.com",
-  requestPending: null,
+  apiBase: "https://fohs-score-tracker.herokuapp.com", 
+  requestPending: null, 
   token: null,
   currentGame: null,
   isCurrentGameSet: false,
-  team: null
+  teamId: null
 });
 
 async function apiCall(path, args = {}) {

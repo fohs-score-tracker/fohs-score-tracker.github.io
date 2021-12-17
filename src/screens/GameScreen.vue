@@ -31,11 +31,8 @@ onMounted(async function () {
   gameList.value = await apiCall("/games").then((k) => k.json());
   for (let game of gameList.value) {
     game.team.coaches.forEach((coach) => {
-      console.log("coachID = %o, userID = %o", coach.id, userData.value.id);
-      console.log(userData.value.id === coach.id);
-      if (coach.id === userData.value.id) {
+      if (coach.id === userData.value.id && game.team.id === appState.teamId) {
         appState.usersGames.push(game);
-        console.log(game.team.players);
       }
     });
   }
