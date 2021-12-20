@@ -60,6 +60,7 @@
     v-bind="player"
     :key="player.id"
     :index="index"
+    type ="player"
   />
   <PlayerStatsModal
     v-for="(player, index) in appState.players"
@@ -122,6 +123,9 @@ async function addPlayer() {
     method: "PATCH",
     body: getIdsForTeamUpdate(player),
   });
+
+    appState.players.push(player)
+
 }
 
 

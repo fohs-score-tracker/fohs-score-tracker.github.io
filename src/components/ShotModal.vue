@@ -75,7 +75,6 @@
                 <label for="shotCheckboxMissed" class="form-check-label">Shot was missed</label>
               </div>
             </fieldset>
-            <!-- TODO: add team -->
           </form>
         </div>
         <div class="modal-footer bg-light">

@@ -14,6 +14,13 @@
       </transition-group>
     </div>
   </div>
+  <DeletePlayerModal
+    v-for="(team, index) in appState.userTeams"
+    v-bind="team"
+    :key="team.id"
+    :index="index"
+    type="team"
+  />
 </template>
 
 <script setup>
