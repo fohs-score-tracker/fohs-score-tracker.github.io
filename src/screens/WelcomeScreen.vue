@@ -82,8 +82,7 @@
 
 <script setup>
 import { defineEmit, inject, onMounted, onUnmounted, ref, markRaw } from "vue";
-import MainScreen from "./MainScreen.vue";
-import GameScreen from "./GameScreen.vue";
+import GameScreen from "./HomeScreen.vue";
 
 const apiCall = inject("apiCall");
 const appState = inject("state");
