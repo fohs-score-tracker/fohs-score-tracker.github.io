@@ -50,7 +50,6 @@ appState.usersGames = [];
 
 
 
-
 onMounted(async function () {
   userData.value = await apiCall("/users/me").then((r) => r.json());
   gameList.value = await apiCall("/games").then((k) => k.json());

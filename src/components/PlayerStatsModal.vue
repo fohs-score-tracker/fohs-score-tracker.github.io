@@ -7,7 +7,7 @@
           Stats for {{ name }}
         </div>
         <div class="modal-body">
-          <CourtSvg class="bg-secondary p-1 mb-2" ignore-clicks :circles="shots" />
+          <CourtSvg class="bg-secondary p-1 mb-2" ignore-clicks :circles="gameShots" />
           <table class="table table-striped">
             <thead>
               <tr>
@@ -47,7 +47,7 @@
 </template>
 
 <script setup>
-import { ref, inject, defineProps, computed } from "vue";
+import { ref, inject, defineProps, computed, reactive } from "vue";
 
 const apiCall = inject("apiCall");
 const appState = inject("state");
@@ -62,6 +62,27 @@ const props = defineProps({
 const closeDeleteModal = ref(null);
 
 
+
+const gameShots = computed(() =>{
+    const tempArr = reactive([])
+    for (let shot of props.shots){
+      if(shot.game_id == appState.currentGame.id ){
+        tempArr.push(shot);
+      }
+    }
+      return tempArr;
+
+})
+
+
+
+
+
+
+
+
+
+
 async function deletePlayer() {
   await apiCall(`/players/${props.id}`, { method: "DELETE" });
   appState.players.splice(props.index, 1);
@@ -69,7 +90,6 @@ async function deletePlayer() {
 }
 
 function calculatePoints(points, total) {
-  if (props.shots === undefined){}
   let count = 0;
   for (let shot of props.shots) {
     if (shot.points == points && shot.game_id == appState.currentGame.id && (total || !shot.missed)) count++;
