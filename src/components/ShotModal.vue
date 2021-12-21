@@ -114,6 +114,9 @@ const formValid = ref(false);
 const playerId = ref(0);
 
 async function onSubmit() {
+
+    newShot.game_id = appState.currentGame.id
+
   let plr = await apiCall(`/players/${playerId.value}/shots/new`, {
     method: "POST",
     body: JSON.stringify(newShot),

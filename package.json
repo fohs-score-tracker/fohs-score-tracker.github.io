@@ -26,5 +26,6 @@
     "type": "git",
     "url": "https://github.com/fohs-score-tracker/fohs-score-tracker.github.io"
   },
-  "LICENSE": "MIT"
+  "LICENSE": "MIT",
+  "packageManager": "yarn@3.1.1"
 }

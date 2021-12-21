@@ -61,6 +61,7 @@ const props = defineProps({
 
 const closeDeleteModal = ref(null);
 
+
 async function deletePlayer() {
   await apiCall(`/players/${props.id}`, { method: "DELETE" });
   appState.players.splice(props.index, 1);
@@ -68,9 +69,10 @@ async function deletePlayer() {
 }
 
 function calculatePoints(points, total) {
+  if (props.shots === undefined){}
   let count = 0;
   for (let shot of props.shots) {
-    if (shot.points == points && (total || !shot.missed)) count++;
+    if (shot.points == points && shot.game_id == appState.currentGame.id && (total || !shot.missed)) count++;
   }
   return count;
 }

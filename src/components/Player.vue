@@ -51,7 +51,7 @@
 </template>
 
 <script setup>
-import { computed, defineProps, inject, ref } from "@vue/runtime-core";
+import { computed, defineProps, inject, ref, onMounted } from "@vue/runtime-core";
 
 const appState = inject("state");
 const apiCall = inject("apiCall");
@@ -61,8 +61,11 @@ const props = defineProps({
   name: String,
   id: Number,
   index: Number,
-  shots: Array,
+  shots:Array
 });
+
+
+
 
 const points = computed(function () {
   let result = {
@@ -71,13 +74,18 @@ const points = computed(function () {
     madeShots: 0,
   };
 
+if (props.shots !== undefined){
+
   for (let shot of props.shots) {
+    if(shot.game_id == appState.currentGame.id){
     result.shots++;
-    if (!shot.missed) {
+    if (!shot.missed ) {
       result.madeShots++;
       result.total += shot.points;
     }
+    }
   }
+}
 
   return result;
 });

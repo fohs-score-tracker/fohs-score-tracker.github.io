@@ -49,7 +49,7 @@ const addScores = computed(() => {
   let overallScore = 0;
   props.playerList.forEach((player) => {
     player.shots.forEach((shot) => { 
-      if(shot.game_id === props.gameData.id)
+      if(shot.game_id === props.gameData.id && !shot.missed)
         overallScore += shot.points
     });
   });

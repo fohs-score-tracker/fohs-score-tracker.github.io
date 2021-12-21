@@ -48,6 +48,7 @@
           v-bind="player"
           :key="player.id"
           :index="index"
+          :shots="player.shots"
         />
       </transition-group>
     </div>
@@ -67,6 +68,7 @@
     v-bind="player"
     :key="player.id"
     :index="index"
+    :shots="player.shots"
   />
 </template>
 
@@ -86,7 +88,7 @@ const newShot = reactive({
   x: 0,
   y: 0,
   points: 0,
-  teamId: 0,
+  game_id: 0,
   missed: true,
 });
 
@@ -119,10 +121,12 @@ async function addPlayer() {
   }).then((plr) => plr.json());
   newPlayer.name = "";
 
-  let updateTeam = await apiCall("/teams/" + appState.currentGame.team.id, {
+  let updateTeam = await apiCall(`/teams/${appState.currentGame.team.id}`, {
     method: "PATCH",
     body: getIdsForTeamUpdate(player),
   });
+
+
 
     appState.players.push(player)
 
@@ -148,7 +152,7 @@ function getIdsForTeamUpdate(newPlayer) {
 }
 
 function startRecordingShot() {
-  if (activePlayerList.value.length > 0) shotModalButton.value.click();
+    if (activePlayerList.value.length > 0) shotModalButton.value.click();
 }
 </script>
 

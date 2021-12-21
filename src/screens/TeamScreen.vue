@@ -37,7 +37,6 @@ appState.userTeams = []
 onMounted(async function(){
   userData.value = await apiCall("/users/me").then((r) => r.json());
   teamCall.value = await apiCall("/teams").then((k)=> k.json());
-  
     teamCall.value.forEach(team => {
         team.coaches.forEach(coach => {
             if (coach.id === userData.value.id) {
