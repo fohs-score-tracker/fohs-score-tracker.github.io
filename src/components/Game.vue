@@ -20,17 +20,12 @@
         </div>
 
         <div class="col d-grid">
-          <button
-            :disabled="appState.requestPending"
-            class="btn btn-sm btn-secondary"
-            @click="updateCurrentGame(gameData)"
-          >select</button>
+          <button :disabled="appState.requestPending" class="btn btn-sm btn-secondary" @click="updateCurrentGame(gameData)">select</button>
         </div>
       </div>
     </div>
   </div>
 </template>
-
 
 <script setup>
 import { defineProps, inject, computed } from "@vue/runtime-core";
@@ -44,13 +39,11 @@ function updateCurrentGame(gameData) {
   console.log("game is pressed");
 }
 
-
 const addScores = computed(() => {
   let overallScore = 0;
   props.playerList.forEach((player) => {
-    player.shots.forEach((shot) => { 
-      if(shot.game_id === props.gameData.id && !shot.missed)
-        overallScore += shot.points
+    player.shots.forEach((shot) => {
+      if (shot.game_id === props.gameData.id && !shot.missed) overallScore += shot.points;
     });
   });
   return overallScore;
@@ -60,6 +53,6 @@ const props = defineProps({
   gameName: String,
   playerList: Object,
   id: Number,
-  gameData: Object
+  gameData: Object,
 });
 </script>

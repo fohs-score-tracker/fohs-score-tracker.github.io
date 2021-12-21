@@ -37,8 +37,7 @@
         </div>
         <div class="modal-footer bg-light">
           <button class="btn btn btn-secondary" data-bs-dismiss="modal" ref="closeDeleteModal" :disabled="appState.requestPending">
-            <i-fa-solid:times />
-            Close
+            <i-fa-solid:times />Close
           </button>
         </div>
       </div>
@@ -61,27 +60,15 @@ const props = defineProps({
 
 const closeDeleteModal = ref(null);
 
-
-
-const gameShots = computed(() =>{
-    const tempArr = reactive([])
-    for (let shot of props.shots){
-      if(shot.game_id == appState.currentGame.id ){
-        tempArr.push(shot);
-      }
+const gameShots = computed(() => {
+  const tempArr = reactive([]);
+  for (let shot of props.shots) {
+    if (shot.game_id == appState.currentGame.id) {
+      tempArr.push(shot);
     }
-      return tempArr;
-
-})
-
-
-
-
-
-
-
-
-
+  }
+  return tempArr;
+});
 
 async function deletePlayer() {
   await apiCall(`/players/${props.id}`, { method: "DELETE" });

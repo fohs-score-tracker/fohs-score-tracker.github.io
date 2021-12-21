@@ -1,5 +1,5 @@
 <template>
-  <component v-if="state.currentScreen != null" :is="state.currentScreen"> </component>
+  <component v-if="state.currentScreen != null" :is="state.currentScreen"></component>
   <div v-else class="d-flex flex-column align-items-center justify-content-center h-100 bg-primary bg-gradient text-white">
     <div class="fw-bold fs-5">FOHS ScoreTracker is loading...</div>
     <span class="mt-2 spinner-border" />
@@ -12,12 +12,12 @@ import WelcomeScreen from "./screens/WelcomeScreen.vue";
 import GameScreen from "./screens/GameScreen.vue";
 
 const state = reactive({
-  apiBase: "https://fohs-score-tracker.herokuapp.com", 
-  requestPending: null, 
+  apiBase: "https://fohs-score-tracker.herokuapp.com",
+  requestPending: null,
   token: null,
   currentGame: null,
   isCurrentGameSet: false,
-  teamId: null
+  teamId: null,
 });
 
 async function apiCall(path, args = {}) {

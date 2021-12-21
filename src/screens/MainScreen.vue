@@ -28,48 +28,22 @@
         placeholder="New player name"
         v-model.trim="newPlayer.name"
       />
-      <button
-        :disabled="!newPlayer.name || appState.requestPending"
-        type="submit"
-        class="btn btn-primary"
-        title="Add a player"
-      >
-        <span
-          class="spinner-border spinner-border-sm"
-          v-if="appState.requestPending == 'POST /players/new'"
-        />
+      <button :disabled="!newPlayer.name || appState.requestPending" type="submit" class="btn btn-primary" title="Add a player">
+        <span class="spinner-border spinner-border-sm" v-if="appState.requestPending == 'POST /players/new'" />
         <i-fa-solid:user-plus v-else />
       </button>
     </form>
     <div class="row g-2 position-relative">
       <transition-group name="players" @before-leave="beforeLeave">
-        <Player
-          v-for="(player, index) in appState.players"
-          v-bind="player"
-          :key="player.id"
-          :index="index"
-          :shots="player.shots"
-        />
+        <Player v-for="(player, index) in appState.players" v-bind="player" :key="player.id" :index="index" :shots="player.shots" />
       </transition-group>
     </div>
   </div>
   <!-- Modals -->
   <button class="d-none" data-bs-toggle="modal" data-bs-target="#shotModal" ref="shotModalButton"></button>
   <ShotModal id="shotModal" />
-  <DeletePlayerModal
-    v-for="(player, index) in appState.players"
-    v-bind="player"
-    :key="player.id"
-    :index="index"
-    type ="player"
-  />
-  <PlayerStatsModal
-    v-for="(player, index) in appState.players"
-    v-bind="player"
-    :key="player.id"
-    :index="index"
-    :shots="player.shots"
-  />
+  <DeletePlayerModal v-for="(player, index) in appState.players" v-bind="player" :key="player.id" :index="index" type="player" />
+  <PlayerStatsModal v-for="(player, index) in appState.players" v-bind="player" :key="player.id" :index="index" :shots="player.shots" />
 </template>
 
 <script setup>
@@ -113,7 +87,6 @@ const activePlayerColor = computed(function () {
   }
 });
 
-
 async function addPlayer() {
   let player = await apiCall("/players/new", {
     method: "POST",
@@ -126,22 +99,17 @@ async function addPlayer() {
     body: getIdsForTeamUpdate(player),
   });
 
-
-
-    appState.players.push(player)
-
+  appState.players.push(player);
 }
-
 
 function getIdsForTeamUpdate(newPlayer) {
   let coaches = [];
   let players = [];
   let gameName = appState.currentGame.team.name;
-  players.push(newPlayer.id)
+  players.push(newPlayer.id);
   appState.currentGame.team.coaches.forEach((coach) => {
-    console.log(coach.id)
+    console.log(coach.id);
     coaches.push(coach.id);
-
   });
   appState.currentGame.team.players.forEach((player) => {
     players.push(player.id);
@@ -152,7 +120,7 @@ function getIdsForTeamUpdate(newPlayer) {
 }
 
 function startRecordingShot() {
-    if (activePlayerList.value.length > 0) shotModalButton.value.click();
+  if (activePlayerList.value.length > 0) shotModalButton.value.click();
 }
 </script>
 

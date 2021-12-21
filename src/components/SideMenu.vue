@@ -14,33 +14,22 @@
       </div>
       <div class="row gy-2">
         <!-- the buttons go here -->
-    
-      <div class="col-12 d-grid">
-          <button :disabled="appState.requestPending" class="btn btn-secondary" @click="teamScreen"><i-fa-solid:home /> Team</button>
-        </div>
-
-
 
         <div class="col-12 d-grid">
-          <button :disabled="appState.requestPending" class="btn btn-secondary" @click="gameScreen"><i-fa-solid:home /> Home</button>
+          <button :disabled="appState.requestPending" class="btn btn-secondary" @click="gameScreen"><i-fa-solid:home />Home</button>
         </div>
         <div class="col-12 d-grid">
-          <button :disabled="appState.requestPending || !appState.isCurrentGameSet " class="btn btn-primary" @click="mainScreen">
-            <i-fa-solid:basketball-ball />
-            Game
+          <button :disabled="appState.requestPending || !appState.isCurrentGameSet" class="btn btn-primary" @click="mainScreen">
+            <i-fa-solid:basketball-ball />Game
           </button>
         </div>
         <div class="col-12 d-grid">
-          <button disabled class="btn btn-secondary">
-            <i-fa-solid:cog />
-            Settings
-          </button>
+          <button disabled class="btn btn-secondary"><i-fa-solid:cog />Settings</button>
         </div>
         <div class="col-12 d-grid">
           <button :disabled="appState.requestPending" class="btn btn-danger" @click="logout">
             <span class="spinner-border spinner-border-sm" v-if="appState.requestPending == 'POST /token/revoke'" />
-            <i-fa-solid:sign-out-alt v-else />
-            Logout
+            <i-fa-solid:sign-out-alt v-else />Logout
           </button>
         </div>
       </div>
@@ -53,7 +42,6 @@ import { computed, defineProps, inject, ref, markRaw, onMounted } from "@vue/run
 import WelcomeScreen from "../screens/WelcomeScreen.vue";
 import GameScreen from "../screens/GameScreen.vue";
 import MainScreen from "../screens/MainScreen.vue";
-import TeamScreen from "../screens/TeamScreen.vue"
 
 const apiCall = inject("apiCall");
 const appState = inject("state");
@@ -63,13 +51,6 @@ const userData = ref({});
 onMounted(async function () {
   userData.value = await apiCall("/users/me").then((r) => r.json());
 });
-
-
-function teamScreen(){
-  appState.currentScreen = markRaw(TeamScreen)
-  close.value.click();
-}
-
 
 function gameScreen() {
   appState.currentScreen = markRaw(GameScreen);
