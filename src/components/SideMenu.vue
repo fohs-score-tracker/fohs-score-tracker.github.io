@@ -16,7 +16,7 @@
         <!-- the buttons go here -->
 
         <div class="col-12 d-grid">
-          <button :disabled="appState.requestPending" class="btn btn-secondary" @click="gameScreen"><i-fa-solid:home />Home</button>
+          <button :disabled="appState.requestPending" class="btn btn-secondary" @click="homeScreen"><i-fa-solid:home />Home</button>
         </div>
         <div class="col-12 d-grid">
           <button :disabled="appState.requestPending || !appState.isCurrentGameSet" class="btn btn-primary" @click="mainScreen">
@@ -40,7 +40,7 @@
 <script setup>
 import { computed, defineProps, inject, ref, markRaw, onMounted } from "@vue/runtime-core";
 import WelcomeScreen from "../screens/WelcomeScreen.vue";
-import GameScreen from "../screens/GameScreen.vue";
+import HomeScreen from "../screens/HomeScreen.vue";
 import MainScreen from "../screens/MainScreen.vue";
 
 const apiCall = inject("apiCall");
@@ -52,8 +52,8 @@ onMounted(async function () {
   userData.value = await apiCall("/users/me").then((r) => r.json());
 });
 
-function gameScreen() {
-  appState.currentScreen = markRaw(GameScreen);
+function homeScreen() {
+  appState.currentScreen = markRaw(HomeScreen);
   close.value.click();
 }
 
