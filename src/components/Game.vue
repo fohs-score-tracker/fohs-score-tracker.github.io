@@ -28,7 +28,8 @@
 </template>
 
 <script setup>
-import { defineProps, inject, computed } from "@vue/runtime-core";
+import { defineProps, inject, computed, markRaw } from "@vue/runtime-core";
+import MainScreen from "../screens/MainScreen.vue";
 
 const apiCall = inject("apiCall");
 const appState = inject("state");
@@ -36,6 +37,7 @@ const appState = inject("state");
 function updateCurrentGame(gameData) {
   appState.currentGame = gameData;
   appState.isCurrentGameSet = true;
+  appState.currentScreen = markRaw(MainScreen);
   console.log("game is pressed");
 }
 
