@@ -24,11 +24,11 @@
 </template>
 
 <script setup>
-import { defineEmit, defineProps, inject, ref, reactive } from "@vue/runtime-core";
+import { defineEmits, defineProps, inject, ref, reactive } from "vue";
 
 const activePlayerList = inject("activePlayerList");
 
-const emit = defineEmit(["click"]);
+const emit = defineEmits(["click"]);
 const props = defineProps({
   requireActive: Boolean,
   hideCircles: Boolean,

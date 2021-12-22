@@ -81,7 +81,7 @@
 </template>
 
 <script setup>
-import { defineEmit, inject, onMounted, onUnmounted, ref, markRaw } from "vue";
+import { inject, onMounted, onUnmounted, ref, markRaw } from "vue";
 import HomeScreen from "./HomeScreen.vue";
 
 const apiCall = inject("apiCall");

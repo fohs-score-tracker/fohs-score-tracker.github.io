@@ -23,7 +23,7 @@
 
 <script setup>
 import { inject, onMounted, ref, computed, defineProps, markRaw } from "@vue/runtime-core";
-import GameScreen from "../screens/GameScreen.vue";
+import GameScreen from "../screens/HomeScreen.vue";
 
 const appState = inject("state");
 const apiCall = inject("apiCall");
