@@ -8,14 +8,14 @@
 </template>
 
 <script setup>
-import { defineEmit, defineProps } from "@vue/runtime-core";
+import { defineEmits, defineProps } from "vue";
 
 var props = defineProps({
   type: String,
   modelValue: Boolean,
 });
 
-const emit = defineEmit(["update:modelValue"]);
+const emit = defineEmits(["update:modelValue"]);
 </script>
 
 <style scoped>

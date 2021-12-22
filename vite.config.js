@@ -1,7 +1,9 @@
 import { defineConfig } from "vite";
 import Vue from "@vitejs/plugin-vue";
-import Components from "vite-plugin-components";
-import ViteIcons, { ViteIconsResolver } from "vite-plugin-icons";
+import Components from "unplugin-vue-components/vite";
+import IconsResolver from 'unplugin-icons/resolver'
+import Icons from 'unplugin-icons/vite'
+
 import { VitePWA } from "vite-plugin-pwa";
 
 // https://vitejs.dev/config/
@@ -9,9 +11,9 @@ export default defineConfig({
   plugins: [
     Vue(),
     Components({
-      customComponentResolvers: ViteIconsResolver(),
+      resolvers: IconsResolver(),
     }),
-    ViteIcons(),
+    Icons(),
     VitePWA({
       includeAssets: ["/favicon.svg", "/assets/*"],
       manifest: {

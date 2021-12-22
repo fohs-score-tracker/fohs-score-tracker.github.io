@@ -1,6 +1,6 @@
 <template>
   <div class="h-100 d-flex align-items-center" novalidate>
-    <transition name="welcome" @after-leave="appState.currentScreen = markRaw(MainScreen)">
+    <transition name="welcome" @after-leave="appState.currentScreen = markRaw(HomeScreen)">
       <form
         @input="formValid = form.checkValidity()"
         @submit.prevent="onFormSubmit"
@@ -9,20 +9,17 @@
         class="mx-auto bg-light border rounded p-3 shadow-lg col-11 col-md-auto"
       >
         <h1 class="fw-light text-center">
-          Welcome to <br class="d-md-none" />
+          Welcome to
+          <br class="d-md-none" />
           <b>FOHS ScoreTracker</b>
         </h1>
         <hr />
         <Alert class="position-absolute top-0 start-0 end-0 m-1" type="danger" v-model="serverError">
-          <i-fa-solid:exclamation-triangle class="fs-5 me-2" />
-          Can't connect to server.
+          <i-fa-solid:exclamation-triangle class="fs-5 me-2" />Can't connect to server.
         </Alert>
         <fieldset :disabled="appState.requestPending">
           <div class="mb-3">
-            <label class="form-label">
-              <i-fa-solid:envelope />
-              Email
-            </label>
+            <label class="form-label"> <i-fa-solid:envelope />Email </label>
             <input
               required
               v-model="email"
@@ -34,10 +31,7 @@
             <div class="invalid-feedback">Account does not exist.</div>
           </div>
           <div class="mb-1 mb-md-2">
-            <label class="form-label">
-              <i-fa-solid:key />
-              Password
-            </label>
+            <label class="form-label"> <i-fa-solid:key />Password </label>
             <input
               required
               type="password"
@@ -62,8 +56,7 @@
               class="btn btn-primary col-md-auto col-12 mb-2 mb-md-0 me-0 me-md-2"
             >
               <span class="spinner-border spinner-border-sm" v-if="appState.requestPending == 'POST /token'" />
-              <i-fa-solid:sign-in-alt v-else />
-              Login
+              <i-fa-solid:sign-in-alt v-else />Login
             </button>
             <button
               :disabled="appState.requestPending"
@@ -72,15 +65,12 @@
               data-bs-toggle="collapse"
               data-bs-target="#loginSettings"
             >
-              <i-fa-solid:bars /> Settings
+              <i-fa-solid:bars />Settings
             </button>
           </div>
           <div class="collapse rounded border shadow-sm mt-2 p-2" id="loginSettings">
-            <div class="text-danger text-center mb-1"><i-fa-solid:exclamation-triangle /> Developer Options</div>
-            <label class="form-label">
-              <i-fa-solid:database />
-              API Base
-            </label>
+            <div class="text-danger text-center mb-1"><i-fa-solid:exclamation-triangle />Developer Options</div>
+            <label class="form-label"> <i-fa-solid:database />API Base </label>
             <input type="url" class="form-control font-monospace" required v-model="appState.apiBase" />
           </div>
         </fieldset>
@@ -91,8 +81,8 @@
 </template>
 
 <script setup>
-import { defineEmit, inject, onMounted, onUnmounted, ref, markRaw } from "vue";
-import MainScreen from "./MainScreen.vue";
+import { inject, onMounted, onUnmounted, ref, markRaw } from "vue";
+import HomeScreen from "./HomeScreen.vue";
 
 const apiCall = inject("apiCall");
 const appState = inject("state");
