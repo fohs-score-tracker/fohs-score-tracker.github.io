@@ -22,7 +22,7 @@ jobs:
           yarn build
       - name: Commit to build branch
         run: |
-          git checkout build
+          git checkout -f build
           rm -rf ./assets/
           mv dist/* .
           git config --global user.name "github-actions"
