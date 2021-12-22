@@ -54,7 +54,6 @@ import { computed, defineProps, inject, ref, onMounted } from "@vue/runtime-core
 const appState = inject("state");
 const apiCall = inject("apiCall");
 const activePlayerList = inject("activePlayerList");
-
 const props = defineProps({
   name: String,
   id: Number,

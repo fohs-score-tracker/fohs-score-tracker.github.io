@@ -48,12 +48,10 @@
 
 <script setup>
 import { inject, onMounted, provide, reactive, ref, computed } from "@vue/runtime-core";
-import WelcomeScreen from "./WelcomeScreen.vue";
 
 const appState = inject("state");
 const apiCall = inject("apiCall");
 const beforeLeave = inject("transitionListFix");
-
 const shotModalButton = ref(null);
 
 const newPlayer = reactive({ name: "" });
@@ -68,12 +66,28 @@ const newShot = reactive({
 
 provide("newShot", newShot);
 
+function sortbyName(playerList) {
+  return playerList.sort((firstPlayer, secondPlayer) => {
+    return firstPlayer.name.localeCompare(secondPlayer.name);
+  });
+}
+
+// function sortByActive(playerList) {
+//   for (let i = playerList.length - 1; 0 < i; i--) {
+//     console.log(playerList[i].active);
+//     if (playerList[i].active !== false && playerList[i].active !== undefined) {
+//       playerList.splice(i, 1);
+//     }
+//   }
+//   return sortbyName(activePlayerList.value.concat(playerList));
+// }
+
 const activePlayerList = computed(() => (appState.players || []).filter((p) => p.active === true));
 provide("activePlayerList", activePlayerList);
 
 onMounted(async function () {
   let data = await apiCall("/games/" + appState.currentGame.id).then((r) => r.json());
-  appState.players = data.team.players;
+  appState.players = sortbyName(data.team.players);
 });
 
 const activePlayerColor = computed(function () {
@@ -99,7 +113,9 @@ async function addPlayer() {
     body: getIdsForTeamUpdate(player),
   });
 
-  appState.players.push(player);
+  const temp = appState.players;
+  temp.push(player);
+  appState.players = sortbyName(temp);
 }
 
 function getIdsForTeamUpdate(newPlayer) {
