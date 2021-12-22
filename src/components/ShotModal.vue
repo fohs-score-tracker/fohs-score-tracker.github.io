@@ -10,10 +10,6 @@
           <p class="text-primary text-center">The red circle shows where the shot was made from.</p>
           <form ref="form" @submit.prevent="onSubmit" id="shotForm" @input="formValid = form.checkValidity()">
             <fieldset :disabled="appState.requestPending">
-              <b>Game ID</b>
-              <input class="form-control font-monospace" required type="number" v-model="newShot.game_id" placeholder="Game ID" />
-              <div class="form-text">TODO: select game from dropdown</div>
-              <hr />
               <b>Which player threw the shot?</b>
               <div class="form-check" v-for="player in activePlayerList" :key="player.id">
                 <input
@@ -79,7 +75,6 @@
                 <label for="shotCheckboxMissed" class="form-check-label">Shot was missed</label>
               </div>
             </fieldset>
-            <!-- TODO: add team -->
           </form>
         </div>
         <div class="modal-footer bg-light">
@@ -119,6 +114,8 @@ const formValid = ref(false);
 const playerId = ref(0);
 
 async function onSubmit() {
+  newShot.game_id = appState.currentGame.id;
+
   let plr = await apiCall(`/players/${playerId.value}/shots/new`, {
     method: "POST",
     body: JSON.stringify(newShot),
@@ -128,7 +125,7 @@ async function onSubmit() {
   newShot.x = 0;
   newShot.y = 0;
   newShot.missed = true;
-  newShot.game_id = undefined;
+  newShot.game_id = appState.currentGame.id;
   newShot.points = 0;
   playerId.value = 0;
 

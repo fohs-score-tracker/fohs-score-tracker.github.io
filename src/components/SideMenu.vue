@@ -14,23 +14,22 @@
       </div>
       <div class="row gy-2">
         <!-- the buttons go here -->
+
         <div class="col-12 d-grid">
-          <button :disabled="appState.requestPending" class="btn btn-Secondary" @click="gameScreen">
-            <i class="fas fa-basketball-ball"></i>
-            Games
+          <button :disabled="appState.requestPending" class="btn btn-secondary" @click="homeScreen"><i-fa-solid:home />Home</button>
+        </div>
+        <div class="col-12 d-grid">
+          <button :disabled="appState.requestPending || !appState.isCurrentGameSet" class="btn btn-primary" @click="mainScreen">
+            <i-fa-solid:basketball-ball />Game
           </button>
+        </div>
+        <div class="col-12 d-grid">
+          <button disabled class="btn btn-secondary"><i-fa-solid:cog />Settings</button>
         </div>
         <div class="col-12 d-grid">
           <button :disabled="appState.requestPending" class="btn btn-danger" @click="logout">
             <span class="spinner-border spinner-border-sm" v-if="appState.requestPending == 'POST /token/revoke'" />
-            <i-fa-solid:sign-out-alt v-else />
-            Logout
-          </button>
-        </div>
-        <div class="col-12 d-grid">
-          <button disabled class="btn btn-secondary">
-            <i-fa-solid:cog />
-            Settings
+            <i-fa-solid:sign-out-alt v-else />Logout
           </button>
         </div>
       </div>
@@ -41,7 +40,8 @@
 <script setup>
 import { computed, defineProps, inject, ref, markRaw, onMounted } from "@vue/runtime-core";
 import WelcomeScreen from "../screens/WelcomeScreen.vue";
-import GameScreen from "../screens/GameScreen.vue";
+import HomeScreen from "../screens/HomeScreen.vue";
+import MainScreen from "../screens/MainScreen.vue";
 
 const apiCall = inject("apiCall");
 const appState = inject("state");
@@ -52,8 +52,15 @@ onMounted(async function () {
   userData.value = await apiCall("/users/me").then((r) => r.json());
 });
 
-function gameScreen() {
-  appState.currentScreen = GameScreen;
+function homeScreen() {
+  appState.currentScreen = markRaw(HomeScreen);
+  close.value.click();
+}
+
+function mainScreen() {
+  // move to mainscreen
+  appState.currentScreen = markRaw(MainScreen);
+  close.value.click();
 }
 
 async function logout() {

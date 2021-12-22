@@ -1,5 +1,5 @@
 <template>
-  <component v-if="state.currentScreen != null" :is="state.currentScreen"> </component>
+  <component v-if="state.currentScreen != null" :is="state.currentScreen"></component>
   <div v-else class="d-flex flex-column align-items-center justify-content-center h-100 bg-primary bg-gradient text-white">
     <div class="fw-bold fs-5">FOHS ScoreTracker is loading...</div>
     <span class="mt-2 spinner-border" />
@@ -9,12 +9,15 @@
 <script setup>
 import { markRaw, onMounted, provide, reactive } from "vue";
 import WelcomeScreen from "./screens/WelcomeScreen.vue";
-import MainScreen from "./screens/MainScreen.vue";
+import HomeScreen from "./screens/HomeScreen.vue";
 
 const state = reactive({
   apiBase: "https://fohs-score-tracker.herokuapp.com",
   requestPending: null,
   token: null,
+  currentGame: null,
+  isCurrentGameSet: false,
+  teamId: null,
 });
 
 async function apiCall(path, args = {}) {
@@ -47,7 +50,7 @@ provide("transitionListFix", function (el) {
 
 onMounted(async function () {
   if ((await tryToken(sessionStorage)) || (await tryToken(localStorage))) {
-    state.currentScreen = markRaw(MainScreen);
+    state.currentScreen = markRaw(HomeScreen);
   } else {
     state.currentScreen = markRaw(WelcomeScreen);
   }
