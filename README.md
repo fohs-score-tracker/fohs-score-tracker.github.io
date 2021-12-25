@@ -101,14 +101,14 @@ To get a local copy up and running follow these simple steps.
 ### Prerequisites
 
 - Have Node.js
-- Install yarn  
+- Install yarn
 
 ### Installation
 
 ```sh
 git clone https://github.com/fohs-score-tracker/fohs-score-tracker.github.io/
 cd fohs-score-tracker.github.io
-yarn install --dev
+npm install
 ```
 
 <!-- USAGE EXAMPLES -->
@@ -118,7 +118,7 @@ yarn install --dev
 ### Running (production)
 
 ```sh
-yarn build
+npm run build
 
 # the app is now in dist/
 ```
@@ -126,7 +126,7 @@ yarn build
 ### Running (development)
 
 ```sh
-yarn dev
+npm run dev
 
 #open `localhost:3000` in your browser
 ```
