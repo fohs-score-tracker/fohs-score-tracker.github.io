@@ -16,10 +16,10 @@ jobs:
           node-version: "16"
       - name: Install dependencies
         run: |
-          yarn --dev
+          npm install
       - name: Build app
         run: |
-          yarn build
+          npm run build
       - name: Commit to build branch
         run: |
           git checkout -f build
