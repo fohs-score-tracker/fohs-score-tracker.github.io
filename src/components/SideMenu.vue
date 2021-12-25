@@ -16,11 +16,11 @@
         <!-- the buttons go here -->
 
         <div class="col-12 d-grid">
-          <button :disabled="appState.requestPending" class="btn btn-secondary" @click="homeScreen"><i-fa-solid:home />Home</button>
+          <button :disabled="appState.requestPending" class="btn btn-secondary" @click="gamesScreen"><i-fa-solid:basketball-ball />Games</button>
         </div>
         <div class="col-12 d-grid">
-          <button :disabled="appState.requestPending || !appState.isCurrentGameSet" class="btn btn-primary" @click="mainScreen">
-            <i-fa-solid:basketball-ball />Game
+          <button :disabled="appState.requestPending" class="btn btn-primary" @click="playersScreen">
+            <i-fa-solid:user-friends />Team Stats
           </button>
         </div>
         <div class="col-12 d-grid">
@@ -40,7 +40,8 @@
 <script setup>
 import { computed, defineProps, inject, ref, markRaw, onMounted } from "@vue/runtime-core";
 import WelcomeScreen from "../screens/WelcomeScreen.vue";
-import HomeScreen from "../screens/HomeScreen.vue";
+import GamesScreen from "../screens/GamesScreen.vue";
+import PlayersScreen from "../screens/PlayersScreen.vue";
 import MainScreen from "../screens/MainScreen.vue";
 
 const apiCall = inject("apiCall");
@@ -52,8 +53,13 @@ onMounted(async function () {
   userData.value = await apiCall("/users/me").then((r) => r.json());
 });
 
-function homeScreen() {
-  appState.currentScreen = markRaw(HomeScreen);
+function gamesScreen() {
+  appState.currentScreen = markRaw(GamesScreen);
+  close.value.click();
+}
+
+function playersScreen() {
+  appState.currentScreen = markRaw(PlayersScreen);
   close.value.click();
 }
 

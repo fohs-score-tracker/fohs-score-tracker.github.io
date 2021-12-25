@@ -9,7 +9,7 @@
 <script setup>
 import { markRaw, onMounted, provide, reactive } from "vue";
 import WelcomeScreen from "./screens/WelcomeScreen.vue";
-import HomeScreen from "./screens/HomeScreen.vue";
+import GamesScreen from "./screens/GamesScreen.vue";
 
 const state = reactive({
   apiBase: "https://fohs-score-tracker.herokuapp.com",
@@ -50,7 +50,7 @@ provide("transitionListFix", function (el) {
 
 onMounted(async function () {
   if ((await tryToken(sessionStorage)) || (await tryToken(localStorage))) {
-    state.currentScreen = markRaw(HomeScreen);
+    state.currentScreen = markRaw(GamesScreen);
   } else {
     state.currentScreen = markRaw(WelcomeScreen);
   }

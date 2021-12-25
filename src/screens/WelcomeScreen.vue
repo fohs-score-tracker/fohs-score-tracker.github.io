@@ -1,6 +1,6 @@
 <template>
   <div class="h-100 d-flex align-items-center" novalidate>
-    <transition name="welcome" @after-leave="appState.currentScreen = markRaw(HomeScreen)">
+    <transition name="welcome" @after-leave="appState.currentScreen = markRaw(GamesScreen)">
       <form
         @input="formValid = form.checkValidity()"
         @submit.prevent="onFormSubmit"
@@ -82,7 +82,7 @@
 
 <script setup>
 import { inject, onMounted, onUnmounted, ref, markRaw } from "vue";
-import HomeScreen from "./HomeScreen.vue";
+import GamesScreen from "./GamesScreen.vue";
 
 const apiCall = inject("apiCall");
 const appState = inject("state");

@@ -23,14 +23,14 @@
 
 <script setup>
 import { inject, onMounted, ref, computed, defineProps, markRaw } from "@vue/runtime-core";
-import GameScreen from "../screens/HomeScreen.vue";
+import GamesScreen from "../screens/GamesScreen.vue";
 
 const appState = inject("state");
 const apiCall = inject("apiCall");
 
 function moveScreen() {
   appState.teamId = props.teamId;
-  appState.currentScreen = markRaw(GameScreen);
+  appState.currentScreen = markRaw(GamesScreen);
 }
 
 const props = defineProps({
